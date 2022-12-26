@@ -3,9 +3,10 @@ const app=express()
 const path=require('path')
 //
 const login=require('./Controller/login')
-const create=require('./Controller/create')
+const {create}=require('./Controller/create')
 const update=require("./Controller/update")
 const deleter=require('./Controller/delete')
+const verif=require('./Controller/verification')
 //Data Parser 
 app.use(express.json()); 
 app.use(express.urlencoded({extended:true})); 
@@ -19,6 +20,7 @@ app.get('/',(req,res)=>{
 app.get('/login',login)
 app.post('/create',create)
 app.put('/update',update)
+app.put('/verif',verif)
 app.delete('/delete',deleter)
 
 app.listen(3000)

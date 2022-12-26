@@ -1,6 +1,6 @@
 const nodemailer=require('nodemailer')
 
-const sendmail=(name,mail)=> {
+const sendmail=(name,mail,code)=> {
     let transporter=nodemailer.createTransport({
         service:'gmail',
         auth:{
@@ -12,7 +12,7 @@ const sendmail=(name,mail)=> {
         from: 'testapinode12@gmail.com',
         to: mail,
         subject: 'Verification',
-        text: 'Welcome '+name+' to our application \n to complete ur registration please click sur le lien suivant\n Developer : Fahd Labba ',
+        text: 'Welcome '+name+' to our application \n Voici votre code de verification '+code+'\n Developer : Fahd Labba ',
     }
     transporter.sendMail(mailOptions,(error,info)=>{
         if(error){

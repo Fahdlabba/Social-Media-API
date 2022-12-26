@@ -1,6 +1,10 @@
 const path=require('path')
 const mailsender=require('./mail_sender')
 const {insert_user,verif_user}=require('../data/database');
+function code(){
+    return Math.floor(Math.random() * 100000)
+}
+let k=code();
 const create=(req,res)=>{
     const {name,password,mail}=req.body
     let a=verif_user(name,mail)
@@ -10,6 +14,7 @@ const create=(req,res)=>{
         if(test){
             //data.push({name:name,password:password,mail:mail})
             insert_user(name,mail,password)
+            mailsender(name,mail,k)
             res.status(200).send("<p>Ajout avec succes ! </p>")
         }else{
             res.render("error.html",{msg:'Name est deja exister !'})
@@ -17,4 +22,7 @@ const create=(req,res)=>{
     })
 }
 
-module.exports=create
+module.exports={
+    create,
+    k
+}

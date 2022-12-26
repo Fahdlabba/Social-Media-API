@@ -11,7 +11,6 @@ const create=(req,res)=>{
             //data.push({name:name,password:password,mail:mail})
             insert_user(name,mail,password)
             res.status(200).send("<p>Ajout avec succes ! </p>")
-            mailsender(name,mail)
         }else{
             res.render("error.html",{msg:'Name est deja exister !'})
         }

@@ -1,6 +1,5 @@
 const express=require("express")
 const app=express()
-const data=require("./data/data")
 const get=require("./Controller/index")
 const login=require('./Controller/login')
 const create=require('./Controller/create')
@@ -18,5 +17,5 @@ app.get('/',get)
 app.get('/login',login)
 
 app.post('/create',create)
-app.put('/update',update)
+//app.put('/update',update)
 app.listen(3000)

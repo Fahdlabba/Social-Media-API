@@ -1,7 +1,5 @@
 const express=require("express")
-const data=require("../data/data.js")
 const path=require("path")
-const found_name=require('./function')
 
 
 

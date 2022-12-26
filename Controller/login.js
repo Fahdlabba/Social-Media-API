@@ -1,22 +1,27 @@
-const data=require('../data/data')
-const found_name=require('./function')
 const path=require('path')
-
+const create=require('./create')
+const {verif_user,verif_pass}=require("../data/database")
 
 const login=(req,res)=>{
-    const {name , password}=req.body;
-    let i=found_name(data,name)
-    if(i!=-1){
-        if(data[i].password!=password){
-            res.status(404).send("<p>Verifier Votre mot de passe</p>");
-        }
-        else{
-            res.render('welcome.html',{name:name})
-        }
-    }else{
-        res.render("error.html",{msg:"Cette nom n'existe pas"})
+    const {name , password,mail}=req.body;
+    let a =verif_user(name,mail)
+    a.then((reslut) => {
+        console.log(reslut.rowCount)
+        if(reslut.rowCount!=0){
+            let b=verif_pass(mail,password)
+            b.then((result2)=>{
+               if(result2.rowCount==0){
+                res.status(404).send("<p>Verifier Votre mot de passe</p>");
+            }
+            else{
+                res.render('welcome.html',{name:name})
+            }
+            })
+        }else{
+            res.render("error.html",{msg:"Cette nom invalide !"})
+     
     }
-    console.log(data)
+})
 
 }
 

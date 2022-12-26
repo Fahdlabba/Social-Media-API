@@ -1,11 +1,11 @@
 const nodemailer=require('nodemailer')
-
+require('dotenv').config()
 const sendmail=(name,mail,code)=> {
     let transporter=nodemailer.createTransport({
         service:'gmail',
         auth:{
-            user:'testapinode12@gmail.com',
-            pass:'kfbrayzzxoijtqrn'
+            user:process.env.MAIL_NAME,
+            pass :process.env.MAIL_PASS
         }
     })
     let mailOptions = {

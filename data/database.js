@@ -31,14 +31,12 @@ const update_user=async(mail,password)=>{
         client.end();
     }
 }
-const verif_user=(name,mail)=>{
+const verif_user=async (name,mail)=>{
     const client=new Client({
         connectionString:connection_url,
         ssl:false
     })
-    client.connect();
-    var test=true
-    let res1=0;
+    await client.connect();
     let res= client.query("SELECT * FROM person WHERE name=$1 AND mail=$2 ",[name,mail])
     return res
 }
@@ -48,8 +46,6 @@ const verif_pass=async (mail,password)=>{
         ssl:false
     })
     await client.connect();
-    var test=true
-    let res1=0;
     let res= client.query("SELECT * FROM person WHERE mail=$1 AND password=$2 ",[mail,password])
     return res
 }
@@ -61,8 +57,6 @@ const deleter_user =async (mail)=>{
         ssl:false
     })
     await client.connect();
-    var test=true
-    let res1=0;
     let res= client.query("DELETE FROM person WHERE mail=$1",[mail])
     return res
 }
@@ -72,8 +66,6 @@ const verification =async (mail)=>{
         ssl:false
     })
     await client.connect();
-    var test=true
-    let res1=0;
     let res= client.query("UPDATE person set verifier=1 WHERE mail=$1",[mail])
     return res
 }

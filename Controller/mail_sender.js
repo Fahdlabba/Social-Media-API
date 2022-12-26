@@ -9,7 +9,7 @@ const sendmail=(name,mail,code)=> {
         }
     })
     let mailOptions = {
-        from: 'testapinode12@gmail.com',
+        from:process.env.MAIL_NAME, ,
         to: mail,
         subject: 'Verification',
         text: 'Welcome '+name+' to our application \n Voici votre code de verification '+code+'\n Developer : Fahd Labba ',

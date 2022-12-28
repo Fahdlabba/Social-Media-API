@@ -33,10 +33,9 @@ app.delete('/delete',deleter)
 //post 
 app.post('/add_post',add_post)
 app.get('/fetch',fetch_post)
-app.post('/like',like_post)
-app.post('/unlike',unlike_post)
+app.put('/like',like_post)
+app.put('/unlike',unlike_post)
 app.delete('/delete_post',delete_post)
-
 
 
 //server 

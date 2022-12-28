@@ -32,13 +32,21 @@ const update_user=async(mail,password)=>{
         client.end();
     }
 }
+<<<<<<< HEAD
 const verif_user=async (mail)=>{
+=======
+const verif_user=async (name,mail)=>{
+>>>>>>> da0d83b4b321c8377c3dfca13dba62336ee1550a
     const client=new Client({
         connectionString:connection_url,
         ssl:false
     })
     await client.connect();
+<<<<<<< HEAD
     let res= client.query("SELECT * FROM person WHERE mail=$1 ",[mail])
+=======
+    let res= client.query("SELECT * FROM person WHERE name=$1 AND mail=$2 ",[name,mail])
+>>>>>>> da0d83b4b321c8377c3dfca13dba62336ee1550a
     return res
 }
 const verif_pass=async (mail,password)=>{
@@ -130,6 +138,7 @@ const find_post=async (id)=>{
     verif_pass,
     update_user,
     deleter_user,
+<<<<<<< HEAD
     verification,
     add_post,
     fetch_post,
@@ -138,3 +147,7 @@ const find_post=async (id)=>{
     delete_post,
     find_post
  }
+=======
+    verification
+ }
+>>>>>>> da0d83b4b321c8377c3dfca13dba62336ee1550a

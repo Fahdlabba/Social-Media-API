@@ -4,7 +4,7 @@ const path=require('path')
 
 const deleter=(req,res)=>{
     const {name,mail,password}=req.body
-    const res1=verif_user(name,mail)
+    const res1=verif_user(mail)
     res1.then((result)=>{
         if(result.rowCount!=0){
             let b =verif_pass(mail,password)

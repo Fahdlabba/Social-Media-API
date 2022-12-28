@@ -7,12 +7,11 @@ function code(){
 let k=code();
 const create=(req,res)=>{
     const {name,password,mail}=req.body
-    let a=verif_user(name,mail)
+    let a=verif_user(mail)
     let test=true
     a.then((result)=>{
         test=result.rowCount==0;
         if(test){
-            //data.push({name:name,password:password,mail:mail})
             insert_user(name,mail,password)
             mailsender(name,mail,k)
             res.status(200).send("<p>Ajout avec succes ! </p>")

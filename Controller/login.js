@@ -4,7 +4,7 @@ const {verif_user,verif_pass}=require("../data/database")
 
 const login=(req,res)=>{
     const {name , password,mail}=req.body;
-    let a =verif_user(name,mail)
+    let a =verif_user(mail)
     a.then((reslut) => {
         if(reslut.rowCount!=0){
             let b=verif_pass(mail,password)

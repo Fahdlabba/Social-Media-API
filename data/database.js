@@ -22,16 +22,11 @@ const update_user=async(mail,password)=>{
         connectionString:connection_url,
         ssl:false
     })
-    try{  
-        await client.connect();
-        await client.query('UPDATE person SET password=$2 WHERE mail=$1 ;',[mail,password])
-        return true;
-    }catch(error){
-        console.log(error.stack)
-    }finally{
-        client.end();
-    }
+    await client.connect();
+    const res=await client.query('UPDATE person SET password=$2 WHERE mail=$1 ;',[mail,password])
+    return res 
 }
+
 const verif_user=async (mail)=>{
     const client=new Client({
         connectionString:connection_url,
@@ -88,15 +83,26 @@ const fetch_post =async (mail)=>{
     let res=await client.query("SELECT * FROM post WHERE mail_user =$1",[mail])
     return res
 }
-const like_post =async (mail,id_post)=>{
+const verif_like_post=async (id_post,mail)=>{
     const client =new Client({
         connectionString:connection_url,
         ssl:false
     })
     await client.connect();
-    let res=await client.query("UPDATE post SET likes=likes+1 WHERE mail_user=$1 AND id_post=$2",[mail,id_post])
+    let check=await client.query("SELECT * FROM post_like WHERE id_post=$1 AND id_user=(SELECT id FROM person where mail=$2)",[id_post,mail])
+    return check
+}
+const like_post =async (mail,id_post)=>{
+    const client =new Client({
+        connectionString:connection_url,
+        ssl:false
+    })
+    await client.connect()
+    const res=await client.query("UPDATE post SET likes=likes+1 WHERE mail_user=$1 AND id_post=$2",[mail,id_post])
+    await client.query("INSERT INTO post_like (id_post,id_user) VALUES ($1,(SELECT id FROM person where mail=$2))",[id_post,mail])
     return res
 }
+
 const unlike_post =async (mail,id_post)=>{
     const client =new Client({
         connectionString:connection_url,
@@ -104,6 +110,7 @@ const unlike_post =async (mail,id_post)=>{
     })
     await client.connect();
     let res=await client.query("UPDATE post SET likes=likes-1 WHERE mail_user=$1 AND id_post=$2",[mail,id_post])
+    await client.query("DELETE FROM post_like WHERE id_post=$1 AND id_user=(SELECT id from person where mail=$2)",[id_post,mail])
     return res
 }
 const delete_post=async (id,mail)=>{
@@ -133,8 +140,10 @@ const find_post=async (id)=>{
     verification,
     add_post,
     fetch_post,
+    verif_like_post,
     like_post,
     unlike_post,
     delete_post,
     find_post
  }
+

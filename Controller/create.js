@@ -6,17 +6,17 @@ function code(){
 }
 let k=code();
 const create=(req,res)=>{
-    const {name,password,mail}=req.body
+    const {name,mail,password}=req.body
     let a=verif_user(mail)
     let test=true
     a.then((result)=>{
         test=result.rowCount==0;
         if(test){
             insert_user(name,mail,password)
-            mailsender(name,mail,k)
+            mailsender(mail,k)
             res.status(200).send("<p>Ajout avec succes ! </p>")
         }else{
-            res.render("error.html",{msg:'Name est deja exister !'})
+            res.render("error.html",{msg:'Cette Mail deja existe !'})
         }
     })
 }

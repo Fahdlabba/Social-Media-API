@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -9,10 +8,15 @@
         <link rel="stylesheet" type="text/css" href="/css/style.css" />
     </head>
     <body>
-        <form action="/login" method="post">
+        <form action="/create" method="POST">
         <div class="box">
             <div class="form">
-                <h2>Login</h2>
+                <h2>Create Account </h2>
+                <div class="inputBox">
+                    <input type="text" required="required" name="name">
+                    <span>Name</span>
+                    <i></i>
+                </div>
                 <div class="inputBox">
                     <input type="text" required="required" name="mail">
                     <span>Mail</span>
@@ -23,12 +27,7 @@
                     <span>Password</span>
                     <i></i>
                 </div><br>
-                <div class="links">
-                    <a href="/forget_pass">Forgot password?</a>
-                    <a><%= msg%></a>
-                    <a href="/create">Sign Up</a>
-                </div>
-                <a href="#"><input type="submit" value="Login"></a>
+                <a href="#"><input type="submit" value="Change"></a>
             </div>
         </div>
         </form>

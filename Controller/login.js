@@ -10,14 +10,14 @@ const login=(req,res)=>{
             let b=verif_pass(mail,password)
             b.then((result2)=>{
                if(result2.rowCount==0){
-                res.render("front/login.html",{msg:"Verifier Votre mot de passe"});
+                res.render("front/index.html",{msg:"Verifier Votre mot de passe"});
             }
             else{
                 res.render('welcome.html',{name:mail})
             }
             })
         }else{
-            res.render("error.html",{msg:"Cette nom invalide !"})
+            res.render("front/index.html",{msg:"Cette nom invalide !"})
      
     }
 })

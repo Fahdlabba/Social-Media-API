@@ -17,7 +17,7 @@ const deleter=(req,res)=>{
                 }
             })
         }else{
-            res.render('error.html',{msg:"Cette Compte n existe pas !"})
+            res.render('../Views/error.html',{msg:"Cette Compte n existe pas !"})
         }
     })
 }

@@ -9,7 +9,7 @@ const verift=(req,res)=>{
             let b=verif_pass(mail,password)
             b.then((result2)=>{
                if(result2.rowCount==0){
-                res.render("error.html",{msg:'Verifier Votre mot de passe'});
+                res.render("../Views/error.html",{msg:'Verifier Votre mot de passe'});
             }
             else{
                 if(c===code){
@@ -20,7 +20,7 @@ const verift=(req,res)=>{
             }
             })
         }else{
-            res.render("error.html",{msg:"Cette nom invalide !"})
+            res.render("../Views/error.html",{msg:"Cette nom invalide !"})
         }
     })
 

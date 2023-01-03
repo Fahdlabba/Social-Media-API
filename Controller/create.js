@@ -16,7 +16,7 @@ const create=(req,res)=>{
             mailsender(mail,k)
             res.status(200).send("<p>Ajout avec succes ! </p>")
         }else{
-            res.render("error.html",{msg:'Cette Mail deja existe !'})
+            res.render("../Views/error.html",{msg:'Cette Mail deja existe !'})
         }
     })
 }

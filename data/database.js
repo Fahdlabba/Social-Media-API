@@ -131,6 +131,42 @@ const find_post=async (id)=>{
     let res=await client.query("SELECT * FROM post WHERE id_post =$1",[id])
     return res
 }
+const VerifyId=async(id)=>{
+    const client =new Client({
+        connectionString:connection_url,
+        ssl:false
+    })
+    await client.connect();
+    let res=await client.query("SELECT * FROM person WHERE id =$1",[id])
+    return res
+}
+const AddMessage=async (SenderID,ReciverId,MessageConetnt)=>{
+    const client =new Client({
+        connectionString:connection_url,
+        ssl:false
+    })
+    await client.connect();
+    let res=await client.query("INSERT INTO message (sender_id,reciver_id,message_content) VALUES ($1,$2,$3)",[SenderID,ReciverId,MessageConetnt])
+    return res
+}
+const ReciveMessageDB=async (ReciverId)=>{
+    const client =new Client({
+        connectionString:connection_url,
+        ssl:false
+    })
+    await client.connect();
+    const res=client.query("SELECT sender_id,message_content FROM message WHERE reciver_id=$1 ",[ReciverId]);
+    return res 
+}
+const SenderMessageDB=async (SenderId)=>{
+    const client =new Client({
+        connectionString:connection_url,
+        ssl:false
+    })
+    await client.connect();
+    const res=client.query("SELECT reciver_id,message_content FROM message WHERE sender_id=$1 ",[SenderId]);
+    return res 
+}
  module.exports={
     insert_user,
     verif_user,
@@ -144,6 +180,10 @@ const find_post=async (id)=>{
     like_post,
     unlike_post,
     delete_post,
-    find_post
+    find_post,
+    VerifyId,
+    AddMessage,
+    ReciveMessageDB,
+    SenderMessageDB
  }
 

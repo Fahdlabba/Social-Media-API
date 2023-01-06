@@ -5,20 +5,16 @@ function code(){
     return Math.floor(Math.random() * 100000)
 }
 let k=code();
-const create=(req,res)=>{
+const create=async (req,res)=>{
     const {name,mail,password}=req.body
-    let a=verif_user(mail)
-    let test=true
-    a.then((result)=>{
-        test=result.rowCount==0;
-        if(test){
-            insert_user(name,mail,password)
-            mailsender(mail,k)
-            res.status(200).send("<p>Ajout avec succes ! </p>")
-        }else{
-            res.render("../Views/error.html",{msg:'Cette Mail deja existe !'})
-        }
-    })
+    let VerifyUser=await verif_user(mail)
+    if(VerifyUser.rowCount!=0){
+        res.render("../Views/error.html",{msg:'Cette Mail deja existe !'})
+        return false 
+    }
+    await insert_user(name,mail,password)
+    mailsender(mail,k)
+    res.status(200).send("<p>Ajout avec succes ! </p>")
 }
 
 module.exports={

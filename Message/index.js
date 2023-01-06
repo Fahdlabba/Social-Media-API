@@ -1,9 +1,8 @@
 const SendMessage=require('./sendMessage')
-const {SenderMessage,ReciverMessage}=require('./FetchMessage')
+const {UserMessages}=require('./FetchMessage')
 
 
 module.exports={
     SendMessage,
-    SenderMessage,
-    ReciverMessage
+    UserMessages
 }

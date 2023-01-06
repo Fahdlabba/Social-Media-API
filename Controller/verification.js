@@ -1,29 +1,19 @@
 const path=require('path')
 const {verif_user,verif_pass,verification}=require("../data/database")
 const {code}=require('./create')
-const verift=(req,res)=>{
-    const {name , password,mail,c}=req.body;
-    let a =verif_user(mail)
-    a.then((reslut) => {
-        if(reslut.rowCount!=0){
-            let b=verif_pass(mail,password)
-            b.then((result2)=>{
-               if(result2.rowCount==0){
-                res.render("../Views/error.html",{msg:'Verifier Votre mot de passe'});
-            }
-            else{
-                if(c===code){
-                    verification(mail)
-                    res.status(202).send("Verification avec succes !;")
-                }
-
-            }
-            })
-        }else{
-            res.render("../Views/error.html",{msg:"Cette nom invalide !"})
-        }
-    })
+const VerifyUser=(req,res)=>{
+    const {UserCode}=req.body;
+    const UserMail=req.query.mail
+    let VerifyUserV=verif_user(UserMail)
+    if(VerifyUserV.rowCount===0){
+        res.render("../Views/error.html",{msg:"Compte n/'existe pas  !"})
+        return false 
+    }
+    if(UserCode===code){
+        verification(UserMail)
+        res.status(202).send("Verification avec succes !;")
+    }
 
 }
 
-module.exports=verift;
+module.exports=VerifyUser

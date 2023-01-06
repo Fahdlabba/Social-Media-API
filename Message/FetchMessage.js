@@ -1,39 +1,25 @@
 const { VerifyId,SenderMessageDB,ReciveMessageDB } = require("../data/database")
 
-
-const ReciverMessage=(req,res)=>{
-    const ReciverId=req.query.id 
-    VerifyId(ReciverId).then((temp)=>{
-        if(temp.rowCount==0){
-            res.render('../Views/error.html',{msg:"Id n'existe pas "})
-            return false 
-        }
-        ReciveMessageDB(ReciverId).then((temp)=>{
-            for(let i=0;i<temp.rowCount;i++){
-                console.log(temp.rows[i])
-            }
-            res.send('<p>Fetch</p>')
-        })
-    })
+const UserMessages=(req,res)=>{
+    const UserId=req.query.id 
+    const VerifyUserId=VerifyId()
+    if(VerifyUserId.rowCount==0){
+        res.render('../Views/error.html',{msg:"Id n'existe pas "})
+        return false 
+    }
+    const MessagesSend=SenderMessageDB(UserId)
+    const MessageRecive=ReciveMessageDB(UserId)
+    console.log("Message Send : ")
+    for(let i=0;i<MessagesSend.rowCount;i++){
+            console.log(MessagesSend.rows[i])
+    }
+    console.log("Message Recive : ")
+    for(let i=0;i<MessageRecive.rowCount;i++){
+        console.log(MessageRecive.rows[i])
 }
-
-const SenderMessage=(req,res)=>{
-    const ReciverId=req.query.id 
-    VerifyId(ReciverId).then((temp)=>{
-        if(temp.rowCount==0){
-            res.render('../Views/error.html',{msg:"Id n'existe pas "})
-            return false 
-        }
-        SenderMessageDB(ReciverId).then((temp)=>{
-            for(let i=0;i<temp.rowCount;i++){
-                console.log(temp.rows[i])
-            }
-            res.send('<p>Fetch</p>')
-        })
-    })
+    res.send('<p>Fetch</p>')
 }
 
 module.exports={
-    SenderMessage,
-    ReciverMessage
+    UserMessages
 }

@@ -5,47 +5,31 @@ const { send } = require('process')
 function code(){
     return Math.floor(Math.random() * 100000)
 }
-let k =0
-const get_password=async (req,res)=>{
-    const {mail}=req.body
-    console.log(mail)
-    k=code()
-    const user =verif_user(mail)
-    user.then(async (temp1)=>{
-        if(temp1.rowCount===0){
-            res.send("Cette Utilisateur n'existe pas")
-            return false
-        }
-        await mail_sender(mail,k)
-        res.send("Code Send !")
-    })
+let CodeSend =0
+const GetPassword=async (req,res)=>{
+    const {UserMail}=req.body
+    CodeSend=code()
+    const VerifyUser=await verif_user(UserMail)
+    if(VerifyUser.rowCount===0){
+        res.send("Cette Utilisateur n'existe pas")
+        return false 
+    }
+    await mail_sender(mail,k)
+    res.send("Code Send !")
 }
-const post_password=async (req,res)=>{
-    const {code,new_password}=req.body
-    const mail=req.query.mail
-    const user =verif_user(mail)
-    user.then((temp1)=>{
-        if(temp1.rowCount==0){
-            res.send("Cette Utilisateur n'existe pas")
-            return false
-        }
-        if(code!=k){
-            res.send("<p> Code Saisie est incorrect ! </p>")
-            return false
-        }
-        const new_pass=update_user(mail,new_password)
-        new_pass.then((temp)=>{
-            if(temp.rowCount===0){
-                res.send("<p>Error svp verifer votre new password</p>")
-                return false 
-            }
-            res.send("<p>Mot de passe change aves succes !")
-        })
-    })
+const PostPassword=async (req,res)=>{
+    const {UserCode,NewPassword}=req.body
+    const UserMail=req.query.mail
+    if(UserCode!=k){
+        res.send("<p> Code Saisie est incorrect ! </p>")
+        return false
+    }
+    await update_user(UserMail,NewPassword)
+    res.send("<p>Mot de passe change aves succes !")
     
 }
 
 module.exports={
-    post_password,
-    get_password
+    PostPassword,
+    GetPassword
 }

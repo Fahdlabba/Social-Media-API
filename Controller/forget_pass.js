@@ -1,7 +1,6 @@
-const {verif_user,verif_pass,update_user}=require('../data/database')
+const {verif_user,update_user}=require('../data/database')
 const path=require('path')
 const mail_sender=require("./mail_sender")
-const { send } = require('process')
 function code(){
     return Math.floor(Math.random() * 100000)
 }

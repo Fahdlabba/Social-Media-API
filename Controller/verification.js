@@ -1,5 +1,5 @@
 const path=require('path')
-const {verif_user,verif_pass,verification}=require("../data/database")
+const {verif_user,verification}=require("../data/database")
 const {code}=require('./create')
 const VerifyUser=(req,res)=>{
     const {UserCode}=req.body;

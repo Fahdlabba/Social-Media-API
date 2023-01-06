@@ -1,4 +1,4 @@
-const {like_post,find_post,verif_user,verif_like_post}=require("../data/database")
+const {like_post,find_post,verif_like_post}=require("../data/database")
 const path =require("path")
 
 const LikePost=async (req,res)=>{

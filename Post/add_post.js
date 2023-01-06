@@ -1,4 +1,4 @@
-const {add_post,verif_user}=require("../data/database")
+const {add_post}=require("../data/database")
 const path =require("path")
 
 const AddPost=async (req,res)=>{

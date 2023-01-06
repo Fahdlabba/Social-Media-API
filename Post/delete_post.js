@@ -1,4 +1,4 @@
-const {delete_post,verif_user,find_post}=require("../data/database")
+const {delete_post,find_post}=require("../data/database")
 const path =require("path")
 
 const DeletePost=async (req,res)=>{

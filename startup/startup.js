@@ -1,4 +1,4 @@
-const {LikePost,AddPost,DeletePost,UnlikePost,fetch_post}=require('../Post/index')
+const {LikePost,AddPost,DeletePost,UnlikePost}=require('../Post/index')
 const {create,login,DeleteUser,VerifyUser,GetPassword,PostPassword}=require('../Controller/index')
 const {UserMessages,SendMessage}=require('../Message/index')
 
@@ -19,10 +19,9 @@ const application=(app)=>{
     app.get('/forget_pass',GetPassword)
     app.post('/forget_pass',PostPassword)
     app.put('/verification',VerifyUser)
-    //User Post
     app.delete('/delete',DeleteUser)
+    //User Post
     app.post('/add_post',AddPost)
-    app.get('/fetch',fetch_post)
     app.post('/like',LikePost)
     app.post('/unlike',UnlikePost)
     app.delete('/delete_post',DeletePost)
